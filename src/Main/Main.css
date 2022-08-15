@@ -1,0 +1,278 @@
+.main {
+  display: flex;
+  width: 100vw;
+  min-height: 100%;
+}
+
+.main-container {
+  display: flex;
+  width: 70%;
+  height: 100%;
+  margin-left: 180px;
+  flex-direction: column;
+  padding: 60px 100px;
+}
+
+.main-title {
+  font-size: 33px;
+  font-weight: 800;
+}
+
+.main-memolist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 80%;
+  margin-top: 60px;
+  margin-left: 30px;
+}
+
+.main-memo {
+  display: flex;
+  width: 340px;
+  height: 200px;
+  padding: 25px 22px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f3f3f3;
+  border-radius: 14px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  margin-right: 40px;
+}
+
+.main-memotitle {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.main-memotitle-left {
+  display: flex;
+  width: 88%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-left: 10px;
+}
+
+.main-memotitle_input {
+  width: 100%;
+  font-size: 17px;
+  font-weight: 700;
+  margin-right: 8px;
+  background-color: transparent;
+  border: none;
+}
+
+.pencil-icon {
+  font-size: 17px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.pencil-icon-true {
+  opacity: 0.7;
+  color: blue;
+}
+
+.main-memotitle-right {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: #c5c5c5;
+  position: relative;
+}
+
+.main-memotitle-right-0 {
+  background-color: #c5c5c5;
+}
+
+.main-memotitle-right-1 {
+  background-color: #e48c8c;
+}
+
+.main-memotitle-right-2 {
+  background-color: #a298dc;
+}
+
+.main-memotitle-right-3 {
+  background-color: #ffee8e;
+}
+
+.main-memotitle-right-4 {
+  background-color: #a7bfe2;
+}
+
+.main-memotitle-colorwidget {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  border-radius: 50px;
+  position: absolute;
+  background-color: #ffffff;
+  position: absolute;
+  left: 15px;
+}
+
+.main-memotitle-color-1,
+.main-memotitle-color-2,
+.main-memotitle-color-3,
+.main-memotitle-color-4 {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+}
+
+.main-memotitle-color-1 {
+  background-color: #e48c8c;
+  position: absolute;
+  bottom: 30px;
+}
+
+.main-memotitle-color-2 {
+  background-color: #a298dc;
+  position: absolute;
+  right: 30.5px;
+}
+
+.main-memotitle-color-3 {
+  background-color: #ffee8e;
+  position: absolute;
+  bottom: 30px;
+  right: 8px;
+}
+
+.main-memotitle-color-4 {
+  background-color: #a7bfe2;
+  position: absolute;
+  bottom: 9px;
+  right: 30.5px;
+}
+
+.main-memocontext {
+  display: flex;
+  width: 100%;
+  height: 80%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 25px;
+}
+
+.main-memodate,
+.main-memointro {
+  margin-bottom: 3px;
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0.9;
+  width: 100%;
+}
+
+.main-memodate:focus,
+.main-memointro:focus,
+.main-memotitle_input:focus {
+  outline: none;
+}
+
+.main-memodate::placeholder,
+.main-memointro::placeholder,
+.main-memotitle_input::placeholder {
+  color: #292929;
+}
+
+.main-memobottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.main-memomember span {
+  font-size: 12px;
+  font-weight: 400;
+  background-color: #e48c8c;
+  padding: 5px 8px;
+  border-radius: 50%;
+  text-align: center;
+  margin: 2px;
+}
+
+.trash-icon {
+  font-size: 16px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.trash-icon:hover {
+  font-size: 15px;
+  opacity: 0.5;
+  color: rgb(255, 0, 0);
+}
+
+.mem2-1,
+.mem2-2 span {
+  background-color: #a7bfe2;
+}
+
+.mem3-1,
+.mem3-2 span {
+  background-color: #fae362;
+}
+.mem4-1,
+.mem4-2 span {
+  background-color: #d6b4de;
+}
+
+.plus-icon {
+  font-size: 20px;
+  font-weight: 800;
+}
+/* .main-container .addTodo {
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  } */
+
+/* right side with todolist and calender */
+
+.main .right_col {
+  display: flex;
+  width: 20%;
+  margin-top: 20px;
+}
+.main .right_col .addTodo {
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+.RightSide .openTodo {
+  justify-content: end;
+  background: #ff5c00;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  text-align: center;
+  transform: translate(-50%, 50%);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
