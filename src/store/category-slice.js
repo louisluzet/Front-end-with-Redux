@@ -1,43 +1,59 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const mainSlice = createSlice({
+const categorySlice = createSlice({
   name: "category",
   initialState: {
-    mainId: 1,
     items: [
       {
-        id: 1,
-        list: [
-          { id: 1, cell },
-          { id: 2, cell },
+        mainId: 1,
+        document: [
+          {
+            categoryId: 1,
+            categoryTitle: "DAY1",
+            cell: [
+              {
+                id: 1,
+                text: "협재로 가서 숙소 체크인!",
+                type: "h2",
+                color: "black",
+              },
+              {
+                id: 2,
+                text: "일단 공항 근처에서 점심먹기 - 돼지국밥!",
+                type: "h2",
+                color: "black",
+              },
+            ],
+          },
+          { categoryId: 2, categoryTitle: "DAY2", cell: [] },
+          { categoryId: 3, categoryTitle: "DAY3", cell: [] },
         ],
       },
       {
-        id: 2,
-        title: "JAPAN🍜",
-        date: "MAY 25 ~ MAY 28",
-        description: "셤끝나고 일본 여행",
-        color: 2,
+        mainId: 2,
+        document: [
+          { id: 1, cell: [] },
+          { id: 2, cell: [] },
+        ],
       },
       {
-        id: 3,
-        title: "NEWYORK🛫",
-        date: "NOVEMBER 1 ~ NOVEMBER 28",
-        description: "뉴욕 걸리버 여행기",
-        color: 3,
+        mainId: 3,
+        document: [
+          { id: 1, cell: [] },
+          { id: 2, cell: [] },
+        ],
       },
     ],
   },
   reducers: {
-    addItemToMain(state, action) {
+    addItemToCategory(state, action) {
       const newItem = action.payload;
-      state.items.push({
-        id: newItem.id,
-        title: newItem.title,
-        date: newItem.date,
-        description: newItem.description,
-        color: 1,
-      });
+      const id = newItem.id + 1;
+      /*state.items.push({
+        categoryId: newItem.categoryId,
+        categoryTitle: newItem.categoryTitle,
+      });*/
+      //조건!
     },
     removeItemToMain(state, action) {
       const id = action.payload;
@@ -47,5 +63,5 @@ const mainSlice = createSlice({
   },
 });
 
-export const mainActions = mainSlice.actions;
-export default mainSlice;
+export const categoryActions = categorySlice.actions;
+export default categorySlice;

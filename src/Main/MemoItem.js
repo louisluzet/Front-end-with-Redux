@@ -1,5 +1,7 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { mainActions } from "../store/main-slice";
+import { mainEditActions } from "../store/mainEdit-slice";
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
@@ -9,34 +11,167 @@ const MemoItem = (props) => {
   const dispatch = useDispatch();
   const { id, title, description, date, color } = props.item;
 
+  const [newTitle, setNewTitle] = useState(title);
+  const [newDescription, setNewDescription] = useState(description);
+  const [newColor, setNewColor] = useState(color);
+  const [newDate, setNewDate] = useState(date);
+
+  const removeItemHandler = () => {
+    dispatch(mainActions.removeItemToMain(id));
+  };
+
   const navigate = useNavigate();
+  const goDetail = () => {
+    navigate(`/detail/${id}`);
+  };
+
+  const [isEdit, setEdit] = useState(false);
+  const [isColor, setColor] = useState(false);
+
+  const editHandler = (event) => {
+    setEdit(!isEdit);
+    dispatch(
+      mainActions.editItemToMain({
+        id,
+        title: newTitle,
+        description: newDescription,
+        color: newColor,
+        date: newDate,
+      })
+    );
+    event.stopPropagation();
+    console.log(title);
+    console.log(date);
+  };
+
+  const toggleEditHandler = (event) => {
+    setEdit(!isEdit);
+    event.stopPropagation();
+  };
+
+  const handleColor = (e, color) => {
+    setNewColor(color);
+    dispatch(
+      mainActions.editItemToMain({
+        id,
+        title: newTitle,
+        description: newDescription,
+        color: newColor,
+        date: newDate,
+      })
+    );
+    e.stopPropagation();
+  };
+
+  const handleToggleColor = (e) => {
+    setColor(!isColor);
+    e.stopPropagation();
+  };
 
   return (
-    <div className="main-memo">
+    <div className="main-memo" onClick={goDetail}>
       <div className="main-memotitle">
-        <div className="main-memotitle-left">
-          <input type="text" className="main-memotitle_input" value={title} />
-          <FontAwesomeIcon icon={faPencil} className="pencil-icon" />
-        </div>
+        {isEdit ? (
+          <div className="main-memotitle-left">
+            <input
+              type="text"
+              className="main-memotitle_input"
+              value={newTitle}
+              onChange={(e) => {
+                setNewTitle(e.target.value);
+              }}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <FontAwesomeIcon
+              icon={faPencil}
+              className={["pencil-icon", `pencil-icon-${isEdit}`].join(" ")}
+              onClick={editHandler}
+            />
+          </div>
+        ) : (
+          <div className="main-memotitle-left">
+            <input
+              type="text"
+              className="main-memotitle_input"
+              value={title}
+              readOnly
+            />
+            <FontAwesomeIcon
+              icon={faPencil}
+              className={["pencil-icon", `pencil-icon-${isEdit}`].join(" ")}
+              onClick={toggleEditHandler}
+            />
+          </div>
+        )}
 
-        <div className="main-memotitle-right">
-          {/* <div className="main-memotitle-colorwidget">
-            <div className="main-memotitle-color-1"></div>
-            <div className="main-memotitle-color-2"></div>
-            <div className="main-memotitle-color-3"></div>
-            <div className="main-memotitle-color-4"></div>
-          </div> */}
+        <div
+          className={[
+            "main-memotitle-right",
+            `main-memotitle-right-${newColor}`,
+          ].join(" ")}
+          onClick={handleToggleColor}
+        >
+          {isColor ? (
+            <div className="main-memotitle-colorwidget">
+              <div
+                className="main-memotitle-color-1"
+                onClick={(e) => handleColor(e, 1)}
+              ></div>
+              <div
+                className="main-memotitle-color-2"
+                onClick={(e) => handleColor(e, 2)}
+              ></div>
+              <div
+                className="main-memotitle-color-3"
+                onClick={(e) => handleColor(e, 3)}
+              ></div>
+              <div
+                className="main-memotitle-color-4"
+                onClick={(e) => handleColor(e, 4)}
+              ></div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
 
-      <div className="main-memocontext">
-        <input type="text" className="main-memodate" value={date} />
-        <input type="text" className="main-memointro" value={description} />
-      </div>
+      {isEdit ? (
+        <div className="main-memocontext">
+          <input
+            type="text"
+            className="main-memodate"
+            value={newDate}
+            onChange={(e) => setNewDate(e.target.value)}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <input
+            type="text"
+            className="main-memointro"
+            value={newDescription}
+            onChange={(e) => setNewDescription(e.target.value)}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      ) : (
+        <div className="main-memocontext">
+          <input type="text" className="main-memodate" value={date} readOnly />
+          <input
+            type="text"
+            className="main-memointro"
+            value={description}
+            readOnly
+          />
+        </div>
+      )}
 
       <div className="main-memobottom">
         <div>
-          <FontAwesomeIcon icon={faTrash} className="trash-icon" />
+          <FontAwesomeIcon
+            icon={faTrash}
+            className="trash-icon"
+            onClick={removeItemHandler}
+          />
         </div>
 
         <div className="main-memomember">
