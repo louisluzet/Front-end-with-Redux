@@ -149,9 +149,12 @@
 
 /* Category Content */
 .CategoryContent {
-  width: 70%;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  margin-left: 40px;
-  margin-right: 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 50px 30px;
+}
+
+.CategoryContent textarea {
+  border: none;
+  width: 100%;
 }
