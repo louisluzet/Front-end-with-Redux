@@ -48,12 +48,11 @@ const categorySlice = createSlice({
   reducers: {
     addItemToCategory(state, action) {
       const newItem = action.payload;
-      const id = newItem.id + 1;
-      /*state.items.push({
+
+      state.items.push({
         categoryId: newItem.categoryId,
         categoryTitle: newItem.categoryTitle,
-      });*/
-      //조건!
+      });
     },
     removeItemToMain(state, action) {
       const id = action.payload;
