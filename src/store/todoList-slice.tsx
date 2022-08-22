@@ -13,7 +13,7 @@ export type TodosState = Todo[];
 const TodosInitialState: TodosState = [
     {
         id: 1,
-        text: '리덕스마스터',
+        text: '리덕스 뿌시기',
         isDone: false
     },
 ];
