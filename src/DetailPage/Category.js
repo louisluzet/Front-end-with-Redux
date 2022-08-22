@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 // import CategoryContent from "./CategoryContent";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryActions } from "../store/category-slice";
+import CategoryContent from "./CategoryContent";
+import "./Detail.css";
 
 const Category = (props) => {
   const id = props.id;
@@ -12,6 +14,7 @@ const Category = (props) => {
   const categoryItems = mainItems.filter(
     (it) => parseInt(it.mainId) === parseInt(id)
   );
+  console.log();
 
   const categoryData = categoryItems.map((it) => it.document);
   const categoryDataObject = categoryData.reduce((it) => it);
@@ -29,7 +32,7 @@ const Category = (props) => {
       categoryActions.addItemToCategory({
         categoryId: dataId.current,
         categoryTitle: "카테고리명",
-        id,
+        id: id,
       })
     );
     dataId.current += 1;
@@ -42,7 +45,7 @@ const Category = (props) => {
         {categoryData &&
           categoryDataObject.map((it) => (
             <span
-              key={it.categoryId}
+              id={it.categoryId}
               className={
                 Highlight === it.categoryId
                   ? "category_title_highlight"
@@ -60,7 +63,7 @@ const Category = (props) => {
       <div className="category_context">
         {categoryItems && (
           <div key={memoId}>
-            {/* <CategoryContent categoryId={memoId} /> */}
+            <CategoryContent id={memoId} item={categoryDataObject} />
           </div>
         )}
       </div>

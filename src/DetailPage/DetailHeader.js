@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import "./Detail.css";
+import DetailSetting from "./DetailSetting";
 
 const DetailHeader = ({ title }) => {
   const [isSetting, setSetting] = useState(false);
@@ -17,7 +18,7 @@ const DetailHeader = ({ title }) => {
         className="memo-setting"
         onClick={onSetting}
       />
-      {isSetting && <DetailHeader />}
+      {isSetting && <DetailSetting />}
     </div>
   );
 };
