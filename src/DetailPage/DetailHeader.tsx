@@ -4,7 +4,10 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import "./Detail.css";
 import DetailSetting from "./DetailSetting";
 
-const DetailHeader = ({ title }) => {
+type DatailHeaderProps = {
+  title: string
+}
+const DetailHeader = ({title}: DatailHeaderProps) => {
   const [isSetting, setSetting] = useState(false);
   const onSetting = () => {
     setSetting(!isSetting);

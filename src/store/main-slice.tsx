@@ -55,14 +55,14 @@ const mainSlice = createSlice({
       const newItem = state.items.find(it => it.id === payload.id);
       if (newItem) {
         const idx = state.items.findIndex((it) => it.id === newItem.id);
-        state.items[idx].title = newItem.title;
-        state.items[idx].date = newItem.date;
-        state.items[idx].description = newItem.description;
-        state.items[idx].color = newItem.color;
+        state.items[idx].title = payload.title;
+        state.items[idx].date = payload.date;
+        state.items[idx].description = payload.description;
+        state.items[idx].color = payload.color;
       }
 
     },
-    removeItemToMain: (state, { payload }: PayloadAction<{id: number;}>) => {
+    removeItemToMain: (state, { payload }: PayloadAction<{id: number}>) => {
       state.items = state.items.filter((item) => item.id !== payload.id);
     }
   },

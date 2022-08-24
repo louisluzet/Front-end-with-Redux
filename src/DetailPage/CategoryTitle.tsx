@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 
-const CategoryTitle = (props) => {
-  const { id, title } = props.item;
+type CategoryTitleProps = {
+  id: number,
+  title: number
+}
+
+const CategoryTitle = (props: CategoryTitleProps) => {
+  const { id, title } = props;
   const [Highlight, setHighlight] = useState(1);
   const [memoId, setMemoId] = useState(1);
 
   console.log(id);
-  const onHighlight = (id) => {
+  const onHighlight = (id: number) => {
     setHighlight(id);
     setMemoId(id);
   };
@@ -17,7 +22,7 @@ const CategoryTitle = (props) => {
   return (
     <div>
       <span
-        id={id}
+        id={String(id)}
         className={
           Highlight === id ? "category_title_highlight" : "category_title"
         }

@@ -1,18 +1,23 @@
 import { useRef, useState } from "react";
 // import CategoryContent from "./CategoryContent";
 import { useDispatch, useSelector } from "react-redux";
-import { categoryActions } from "../store/category-slice";
+import { RootState } from "../store";
+import { categoryActions, MemoDataState } from "../store/category-slice";
 import CategoryContent from "./CategoryContent";
 import "./Detail.css";
 
-const Category = (props) => {
+type CategoryProps = {
+  id: number
+} 
+
+const Category = (props: CategoryProps) => {
   const id = props.id;
   const dispatch = useDispatch();
   const dataId = useRef(4);
 
-  const mainItems = useSelector((state) => state.category.items);
+  const mainItems: MemoDataState = useSelector((state: RootState) => state.category.items);
   const categoryItems = mainItems.filter(
-    (it) => parseInt(it.mainId) === parseInt(id)
+    (it) => it.mainId === id
   );
   console.log();
 
@@ -22,7 +27,7 @@ const Category = (props) => {
   const [Highlight, setHighlight] = useState(1);
   const [memoId, setMemoId] = useState(1);
 
-  const onHighlight = (id) => {
+  const onHighlight = (id: any) => {
     setHighlight(id);
     setMemoId(id);
   };
@@ -45,7 +50,7 @@ const Category = (props) => {
         {categoryData &&
           categoryDataObject.map((it) => (
             <span
-              id={it.categoryId}
+              id={String(it.categoryId)}
               className={
                 Highlight === it.categoryId
                   ? "category_title_highlight"
