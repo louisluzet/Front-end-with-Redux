@@ -17,7 +17,7 @@ const MemoItem = (props: Memo) => {
   const [newDate, setNewDate] = useState(date);
 
   const removeItemHandler = () => {
-    dispatch(mainActions.removeItemToMain({id: id}));
+    dispatch(mainActions.removeItemToMain({ id: id }));
   };
 
   const navigate = useNavigate();
@@ -40,8 +40,6 @@ const MemoItem = (props: Memo) => {
       })
     );
     event.stopPropagation();
-    console.log(title);
-    console.log(date);
   };
 
   const toggleEditHandler = (event: any) => {

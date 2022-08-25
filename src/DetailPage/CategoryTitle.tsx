@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 type CategoryTitleProps = {
-  id: number,
-  title: number
-}
+  id: number;
+  title: number;
+};
 
 const CategoryTitle = (props: CategoryTitleProps) => {
   const { id, title } = props;

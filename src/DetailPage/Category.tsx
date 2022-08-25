@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-// import CategoryContent from "./CategoryContent";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { categoryActions, MemoDataState } from "../store/category-slice";
@@ -7,29 +6,28 @@ import CategoryContent from "./CategoryContent";
 import "./Detail.css";
 
 type CategoryProps = {
-  id: number
-} 
+  mainId: number;
+};
 
 const Category = (props: CategoryProps) => {
-  const id = props.id;
+  const mainId = props.mainId;
   const dispatch = useDispatch();
   const dataId = useRef(4);
 
-  const mainItems: MemoDataState = useSelector((state: RootState) => state.category.items);
-  const categoryItems = mainItems.filter(
-    (it) => it.mainId === id
+  const mainItems: MemoDataState = useSelector(
+    (state: RootState) => state.category.items
   );
-  console.log();
+  const categoryItems = mainItems.filter((it) => it.mainId === mainId);
 
   const categoryData = categoryItems.map((it) => it.document);
   const categoryDataObject = categoryData.reduce((it) => it);
 
   const [Highlight, setHighlight] = useState(1);
-  const [memoId, setMemoId] = useState(1);
+  const [categoryId, setCategoryId] = useState(1);
 
   const onHighlight = (id: any) => {
     setHighlight(id);
-    setMemoId(id);
+    setCategoryId(id);
   };
 
   const addItemHandler = () => {
@@ -37,11 +35,10 @@ const Category = (props: CategoryProps) => {
       categoryActions.addItemToCategory({
         categoryId: dataId.current,
         categoryTitle: "카테고리명",
-        id: id,
+        mainId: mainId,
       })
     );
     dataId.current += 1;
-    console.log(mainItems);
   };
 
   return (
@@ -67,9 +64,11 @@ const Category = (props: CategoryProps) => {
       </div>
       <div className="category_context">
         {categoryItems && (
-          <div key={memoId}>
-            <CategoryContent id={memoId} item={categoryDataObject} />
-          </div>
+          <CategoryContent
+            mainId={mainId}
+            categoryId={categoryId}
+            item={categoryDataObject}
+          />
         )}
       </div>
     </div>

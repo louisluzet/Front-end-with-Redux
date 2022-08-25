@@ -49,13 +49,13 @@ const MemoDataInitialState: MemoDataState = [
         cell: [
           {
             id: 1,
-            text: "협재로 가서 숙소 체크인!",
+            text: "하이!",
             type: "h2",
             color: "black",
           },
           {
             id: 2,
-            text: "일단 공항 근처에서 점심먹기 - 돼지국밥!",
+            text: "방가",
             type: "h2",
             color: "black",
           },
@@ -114,10 +114,19 @@ const categorySlice = createSlice({
     //       cell: [],
     //     });
     //   });
-    addItemToCategory: (state, { payload }: PayloadAction<{categoryId: number, categoryTitle: string, id: number}>) => {
+    addItemToCategory: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        categoryId: number;
+        categoryTitle: string;
+        mainId: number;
+      }>
+    ) => {
       const newItem = payload;
       return produce(state, (draft) => {
-        const find = draft.items.find((item) => item.mainId === newItem.id);
+        const find = draft.items.find((item) => item.mainId === newItem.mainId);
         if (find) {
           find.document.push({
             categoryId: newItem.categoryId,
@@ -126,23 +135,78 @@ const categorySlice = createSlice({
           });
         }
       });
-    }
+    },
+    addCellToCategory: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        id: number;
+        categoryId: number;
+        mainId: number;
+        text: string;
+      }>
+    ) => {
+      const newItem = payload;
 
-    // const newItem = action.payload;
-    // const existingItem = state.items.find(
-    //   (item) => item.mainId === newItem.id
-    // );
-    // existingItem.document.push({
-    //   categoryId: newItem.categoryId,
-    //   categoryTitle: newItem.categoryTitle,
-    // });
-    // },
-    // removeItemToMain(state, action) {
-    //   const id = action.payload;
-    //   const existingItem = state.items.find((item) => item.id === id);
-    //   state.items = state.items.filter((item) => item.id !== id);
-    // },
-  }
+      const find = state.items.find((item) => item.mainId === newItem.mainId);
+      const category = find?.document.find(
+        (item) => item.categoryId === newItem.categoryId
+      );
+      console.log(newItem);
+
+      if (category) {
+        category.cell.push({
+          id: 3,
+          text: newItem.text,
+          type: "h2",
+          color: "black",
+        });
+      }
+    },
+    editCellToCategory: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        id: number;
+        text: string;
+        categoryId: number;
+        mainId: number;
+      }>
+    ) => {
+      const newItem = payload;
+
+      const find = state.items.find((item) => item.mainId === newItem.mainId);
+      const category = find?.document.find(
+        (item) => item.categoryId === newItem.categoryId
+      );
+      const cell = category?.cell.find((item) => item.id === newItem.id);
+      console.log(newItem);
+
+      /*if (cell) {
+        cell.text = newItem.text;
+      }*/
+      //immer써야함
+    },
+    /*removeItemToCateogory: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        categoryId: number;
+        mainId: number;
+      }>
+    ) => {
+      const newItem = payload;
+      const find = state.items.find(
+        (item) => item.mainId === newItem.mainId
+      );
+      find.document = find.document.filter(
+        (item) => item.categoryId !== newItem.categoryId
+      );
+    },*/
+  },
 });
 
 export const categoryActions = categorySlice.actions;
