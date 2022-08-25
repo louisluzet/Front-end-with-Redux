@@ -1,7 +1,26 @@
 import "./SignUp.css";
 import { Link } from "react-router-dom";
-
+import { addUserAsync, User } from "../../store/user-slice";
+import { useDispatch } from "react-redux";
+import { ChangeEvent, useState } from "react";
 const SignUp = () => {
+  const [user, setUser] = useState<User>({
+    email: "",
+    password: "",
+    nickname: "",
+    id_token: false,
+  });
+
+  const dispatch = useDispatch();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setUser({...user, [name]: value});
+  }
+
+  const handleSubmit = (user: User) => {
+    // dispatch(addUserAsync(user));
+  }
   return (
     <div className="tutorial">
       <div className="tutorial-header">
