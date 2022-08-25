@@ -3,6 +3,7 @@ import mainSlice from "./main-slice";
 import mainEditSlice from "./mainEdit-slice";
 import categorySlice from "./category-slice";
 import todoListSlice from "./todoList-slice";
+import userSlice from "./user-slice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     mainEdit: mainEditSlice.reducer,
     category: categorySlice.reducer,
     todoList: todoListSlice.reducer,
+    user: userSlice.reducer,
   },
 });
 
