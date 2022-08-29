@@ -1,12 +1,14 @@
+import { faDraftingCompass } from "@fortawesome/free-solid-svg-icons";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import produce from "immer";
 
 export type Memo = {
-  id: number,
-  title: string,
-  date: string,
-  description: string,
-  color: number
-}
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  color: number;
+};
 
 export type MemosState = Memo[];
 
@@ -48,11 +50,11 @@ const mainSlice = createSlice({
         title: payload.title,
         date: payload.date,
         description: payload.description,
-        color: payload.color
+        color: payload.color,
       });
     },
-    editItemToMain : (state, { payload }: PayloadAction<Memo>) => {
-      const newItem = state.items.find(it => it.id === payload.id);
+    editItemToMain: (state, { payload }: PayloadAction<Memo>) => {
+      const newItem = state.items.find((it) => it.id === payload.id);
       if (newItem) {
         const idx = state.items.findIndex((it) => it.id === newItem.id);
         state.items[idx].title = payload.title;
@@ -60,11 +62,20 @@ const mainSlice = createSlice({
         state.items[idx].description = payload.description;
         state.items[idx].color = payload.color;
       }
-
     },
-    removeItemToMain: (state, { payload }: PayloadAction<{id: number}>) => {
-      state.items = state.items.filter((item) => item.id !== payload.id);
-    }
+    removeItemToMain: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        id: number;
+      }>
+    ) => {
+      const newItem = payload;
+      return produce(state, (draft) => {
+        draft.items = draft.items.filter((item) => item.id !== newItem.id);
+      });
+    },
   },
 });
 

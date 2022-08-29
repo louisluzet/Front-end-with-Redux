@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { categoryActions } from "../store/category-slice";
+import { categoryActions, MemoDataState } from "../store/category-slice";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Cell } from "../store/category-slice";
+import { RootState } from "../store";
 
 type CategoryCellProps = {
   mainId: number;
@@ -12,12 +13,16 @@ type CategoryCellProps = {
 };
 
 const CategoryCell = (props: CategoryCellProps) => {
+  const mainItems: MemoDataState = useSelector(
+    (state: RootState) => state.category.items
+  );
+
   const dispatch = useDispatch();
 
   const categoryId = props.categoryId;
   const mainId = props.mainId;
   const cellItem = props.item;
-
+  console.log(cellItem);
   const [cellText, setCellText] = useState(cellItem.text);
   const [cellId, setCellId] = useState(cellItem.id);
 
@@ -39,7 +44,6 @@ const CategoryCell = (props: CategoryCellProps) => {
       })
     );
   };
-
   const onKeyPress = (e: any) => {
     if (e.key === "Enter") {
       dispatch(

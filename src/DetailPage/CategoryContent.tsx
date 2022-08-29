@@ -13,7 +13,6 @@ type CategoryContentProps = {
 };
 
 const CategoryContent = (props: CategoryContentProps) => {
-  // const categoryItem = props.item;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,12 +26,9 @@ const CategoryContent = (props: CategoryContentProps) => {
 
   const categoryCell = categoryContent?.cell;
 
+  console.log(CategoryCell);
   return (
     <div className="CategoryContent">
-      <div className="CategorySetSmall">
-        <span>제목 수정</span>
-        <span>페이지 삭제</span>
-      </div>
       <div className="CategoryCell">
         {categoryCell?.map((it) => (
           <CategoryCell mainId={mainId} item={it} categoryId={categoryId} />

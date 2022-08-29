@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { mainActions, Memo } from "../store/main-slice";
 import { mainEditActions } from "../store/mainEdit-slice";
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,8 @@ const MemoItem = (props: Memo) => {
   const [newDescription, setNewDescription] = useState(description);
   const [newColor, setNewColor] = useState(color);
   const [newDate, setNewDate] = useState(date);
+
+  useEffect(() => {}, [props]);
 
   const removeItemHandler = () => {
     dispatch(mainActions.removeItemToMain({ id: id }));

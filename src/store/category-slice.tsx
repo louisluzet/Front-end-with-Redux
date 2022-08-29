@@ -31,13 +31,13 @@ const MemoDataInitialState: MemoDataState = [
         cell: [
           {
             id: 1,
-            text: "협재로 가서 숙소 체크인!",
+            text: "입력해주세요",
             type: "h2",
             color: "black",
           },
           {
             id: 2,
-            text: "일단 공항 근처에서 점심먹기 - 돼지국밥!",
+            text: "입력해주세요",
             type: "h2",
             color: "black",
           },
@@ -61,7 +61,24 @@ const MemoDataInitialState: MemoDataState = [
           },
         ],
       },
-      { categoryId: 3, categoryTitle: "DAY3", cell: [] },
+      {
+        categoryId: 3,
+        categoryTitle: "DAY3",
+        cell: [
+          {
+            id: 1,
+            text: "안녕하세요3!",
+            type: "h2",
+            color: "black",
+          },
+          {
+            id: 2,
+            text: "방가3",
+            type: "h2",
+            color: "black",
+          },
+        ],
+      },
     ],
   },
   {
@@ -147,22 +164,22 @@ const categorySlice = createSlice({
         text: string;
       }>
     ) => {
-      const newItem = payload;
+      return produce(state, (draft) => {
+        const newItem = payload;
 
-      const find = state.items.find((item) => item.mainId === newItem.mainId);
-      const category = find?.document.find(
-        (item) => item.categoryId === newItem.categoryId
-      );
-      console.log(newItem);
-
-      if (category) {
-        category.cell.push({
-          id: 3,
-          text: newItem.text,
-          type: "h2",
-          color: "black",
-        });
-      }
+        const find = draft.items.find((item) => item.mainId === newItem.mainId);
+        const category = find?.document.find(
+          (item) => item.categoryId === newItem.categoryId
+        );
+        if (category) {
+          category.cell.push({
+            id: 3,
+            text: newItem.text,
+            type: "h2",
+            color: "black",
+          });
+        }
+      });
     },
     editCellToCategory: (
       state,
@@ -175,21 +192,29 @@ const categorySlice = createSlice({
         mainId: number;
       }>
     ) => {
-      const newItem = payload;
+      return produce(state, (draft) => {
+        const newItem = payload;
 
-      const find = state.items.find((item) => item.mainId === newItem.mainId);
-      const category = find?.document.find(
-        (item) => item.categoryId === newItem.categoryId
-      );
-      const cell = category?.cell.find((item) => item.id === newItem.id);
-      console.log(newItem);
+        const find = draft.items.find((item) => item.mainId === newItem.mainId);
+        const category = find?.document.find(
+          (item) => item.categoryId === newItem.categoryId
+        );
 
-      /*if (cell) {
-        cell.text = newItem.text;
-      }*/
-      //immer써야함
+        if (newItem.text.length >= 1) {
+          const cell = category?.cell.find((item) => item.id === newItem.id);
+          if (cell) {
+            cell.text = newItem.text;
+          }
+        } else {
+          if (category) {
+            category.cell = category?.cell.filter(
+              (item) => item.id !== newItem.id
+            );
+          }
+        }
+      });
     },
-    /*removeItemToCateogory: (
+    removeItemToCateogory: (
       state,
       {
         payload,
@@ -198,14 +223,17 @@ const categorySlice = createSlice({
         mainId: number;
       }>
     ) => {
-      const newItem = payload;
-      const find = state.items.find(
-        (item) => item.mainId === newItem.mainId
-      );
-      find.document = find.document.filter(
-        (item) => item.categoryId !== newItem.categoryId
-      );
-    },*/
+      return produce(state, (draft) => {
+        const newItem = payload;
+
+        const find = draft.items.find((item) => item.mainId === newItem.mainId);
+        if (find) {
+          find.document = find.document.filter(
+            (item) => item.categoryId !== newItem.categoryId
+          );
+        }
+      });
+    },
   },
 });
 
