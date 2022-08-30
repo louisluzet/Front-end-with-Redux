@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { mainActions, Memo } from "../store/main-slice";
 import { mainEditActions } from "../store/mainEdit-slice";
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -16,8 +16,10 @@ const MemoItem = (props: Memo) => {
   const [newColor, setNewColor] = useState(color);
   const [newDate, setNewDate] = useState(date);
 
+  useEffect(() => {}, [props]);
+
   const removeItemHandler = () => {
-    dispatch(mainActions.removeItemToMain({id: id}));
+    dispatch(mainActions.removeItemToMain({ id: id }));
   };
 
   const navigate = useNavigate();
@@ -40,8 +42,6 @@ const MemoItem = (props: Memo) => {
       })
     );
     event.stopPropagation();
-    console.log(title);
-    console.log(date);
   };
 
   const toggleEditHandler = (event: any) => {

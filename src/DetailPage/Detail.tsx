@@ -11,8 +11,12 @@ import { Memo, MemosState } from "../store/main-slice";
 const Detail = () => {
   const { id } = useParams();
 
-  const mainItems: MemosState = useSelector((state: RootState) => state.main.items);
-  const detailItems: Memo = mainItems.find((it: Memo) => it.id === parseInt(id!))!;
+  const mainItems: MemosState = useSelector(
+    (state: RootState) => state.main.items
+  );
+  const detailItems: Memo = mainItems.find(
+    (it: Memo) => it.id === parseInt(id!)
+  )!;
 
   const navigate = useNavigate();
 
@@ -30,7 +34,7 @@ const Detail = () => {
           {mainItems && <span>{detailItems.date}</span>}
         </div>
         <div className="memo-category">
-          <Category id={parseInt(id!)} />
+          <Category mainId={parseInt(id!)} />
         </div>
       </div>
     </div>
