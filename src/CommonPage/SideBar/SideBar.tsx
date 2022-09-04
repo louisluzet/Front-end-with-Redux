@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
@@ -6,9 +7,17 @@ import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./SideBar.css";
 import { useNavigate } from "react-router-dom";
+import HomeSettingModal from "./HomeSettingModal";
 
-function SideBar() {
+const SideBar = () => {
   const navigate = useNavigate();
+  const [settingModal, setSettingModal] = useState<boolean>(false);
+  const openSettingModal = () => {
+    setSettingModal(true);
+  };
+  const closeSettingModal = () => {
+    setSettingModal(false);
+  };
   return (
     <div className="sidebar">
       <div className="sidebar-profile">
@@ -24,12 +33,16 @@ function SideBar() {
             onClick={() => navigate("/main")}
           />
         </span>
-        <FontAwesomeIcon icon={faCog} className="sidebar-btn faCog" />
+        <FontAwesomeIcon icon={faCog} className="sidebar-btn faCog" onClick={openSettingModal}/>
         <FontAwesomeIcon icon={faBell} className="sidebar-btn faBell" />
       </div>
       <div className="sidebar-btn-bottom">
         <FontAwesomeIcon icon={faSignOut} className="sidebar-btn faSignOut" />
       </div>
+      <HomeSettingModal 
+        open={settingModal}
+        close={closeSettingModal}
+      />
     </div>
   );
 }
